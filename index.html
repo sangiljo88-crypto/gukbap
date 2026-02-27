@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>전국국밥거래소 — 21년 도축공장 직송 국밥재료 도매</title>
+<meta name="description" content="HACCP 인증 도축공장에서 중간 유통 없이 직접 보내드립니다. 국밥 한 그릇 내장 원가 650원. 21년 새림이 만듭니다.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Noto+Serif+KR:wght@400;600;700;900&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --primary:#0c0c1d;--accent:#e94560;--accent2:#ff6b35;
+  --gold:#c9a96e;--gold-light:#e8d5a8;--cream:#faf8f4;
+  --dark:#070711;--text:#2d2d2d;--text-light:#7a7a8a;--white:#fff;
+  --gf:linear-gradient(135deg,#e94560 0%,#ff6b35 50%,#c9a96e 100%);
+  --gg:linear-gradient(135deg,#c9a96e,#e8d5a8,#c9a96e);
+  --gh:linear-gradient(160deg,#0a0a18 0%,#0f1528 30%,#1a1a2e 60%,#0c0c1d 100%);
+  --ss:0 4px 20px rgba(0,0,0,.06);--sm:0 12px 40px rgba(0,0,0,.08);
+  --sl:0 32px 80px rgba(0,0,0,.12);
+  --rm:20px;--rl:32px;
+}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:'Noto Sans KR',-apple-system,sans-serif;color:var(--text);background:var(--cream);overflow-x:hidden;line-height:1.8;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+a{text-decoration:none;color:inherit}
+
+/* Noise overlay */
+.noise{position:fixed;inset:0;pointer-events:none;z-index:9999;opacity:.03;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+/* Cursor glow - desktop only */
+.cursor-glow{position:fixed;width:600px;height:600px;border-radius:50%;pointer-events:none;z-index:9998;
+  background:radial-gradient(circle,rgba(233,69,96,.06) 0%,transparent 70%);
+  transform:translate(-50%,-50%);transition:left .3s ease,top .3s ease;display:none}
+@media(hover:hover){.cursor-glow{display:block}}
+
+/* Top Bar */
+.top-bar{position:fixed;top:0;left:0;right:0;z-index:1000;padding:1rem 2rem;transition:all .4s ease;background:transparent}
+.top-bar.scrolled{background:rgba(7,7,17,.92);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid rgba(201,169,110,.15);padding:.7rem 2rem}
+.top-bar-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between}
+.top-logo{font-family:'Noto Serif KR',serif;font-size:1.3rem;color:var(--white);font-weight:700;letter-spacing:.05em}
+.top-logo span{background:var(--gf);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.top-cta{display:inline-block;padding:.6rem 1.6rem;background:var(--gf);color:#fff;font-weight:700;font-size:.85rem;border-radius:50px;letter-spacing:.05em;transition:transform .3s,box-shadow .3s}
+.top-cta:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(233,69,96,.3)}
+
+/* Hero */
+.hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;background:var(--gh);overflow:hidden;padding:6rem 2rem}
+.hero-particles{position:absolute;inset:0;pointer-events:none}
+.hero-particle{position:absolute;width:4px;height:4px;background:var(--gold);border-radius:50%;opacity:0;animation:hpFloat 8s ease-in-out infinite}
+@keyframes hpFloat{0%{opacity:0;transform:translateY(100vh) scale(0)}20%{opacity:.6}80%{opacity:.4}100%{opacity:0;transform:translateY(-20vh) scale(1.5)}}
+.hero-orb{position:absolute;border-radius:50%;filter:blur(80px);opacity:.15;animation:orbFloat 10s ease-in-out infinite alternate}
+.hero-orb-1{width:500px;height:500px;background:#e94560;top:-10%;left:-10%}
+.hero-orb-2{width:400px;height:400px;background:#c9a96e;bottom:-15%;right:-5%;animation-delay:3s}
+.hero-orb-3{width:300px;height:300px;background:#ff6b35;top:40%;right:20%;animation-delay:6s}
+@keyframes orbFloat{0%{transform:translate(0,0)}100%{transform:translate(40px,-40px)}}
+
+.hero-content{position:relative;z-index:2;max-width:800px}
+.hero-badge{display:inline-block;padding:.5rem 1.5rem;background:rgba(201,169,110,.12);border:1px solid rgba(201,169,110,.25);border-radius:50px;font-size:.8rem;color:var(--gold-light);letter-spacing:.15em;font-weight:500;margin-bottom:2rem;animation:fadeInDown .8s ease .3s both}
+.hero h1{font-family:'Noto Serif KR',serif;font-size:clamp(2rem,5vw,3.8rem);color:var(--white);line-height:1.3;font-weight:900;margin-bottom:1.5rem;animation:fadeInDown .8s ease .5s both}
+.hero h1 em{font-style:normal;background:var(--gf);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-sub{font-size:clamp(1rem,2vw,1.25rem);color:rgba(255,255,255,.65);line-height:1.9;margin-bottom:1rem;animation:fadeInDown .8s ease .7s both}
+.hero-proof{font-size:clamp(.88rem,1.6vw,1rem);color:rgba(255,255,255,.45);margin-bottom:2.5rem;animation:fadeInDown .8s ease .85s both;line-height:1.6}
+.hero-proof strong{color:var(--gold-light)}
+.hero-cta-group{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;animation:fadeInDown .8s ease 1s both}
+.btn-hero-primary{display:inline-flex;align-items:center;gap:.5rem;padding:1rem 2.5rem;background:var(--gf);color:#fff;font-weight:700;font-size:1rem;border-radius:60px;border:none;cursor:pointer;transition:transform .3s,box-shadow .3s}
+.btn-hero-primary:hover{transform:translateY(-3px);box-shadow:0 12px 40px rgba(233,69,96,.35)}
+.btn-hero-secondary{display:inline-flex;align-items:center;gap:.5rem;padding:1rem 2.5rem;background:transparent;color:var(--gold-light);font-weight:600;font-size:1rem;border-radius:60px;border:1px solid rgba(201,169,110,.3);cursor:pointer;transition:all .3s}
+.btn-hero-secondary:hover{background:rgba(201,169,110,.1);border-color:var(--gold)}
+
+.hero-stats{display:flex;justify-content:center;gap:3rem;margin-top:4rem;animation:fadeInDown .8s ease 1.2s both}
+.hero-stat{text-align:center}
+.hero-stat-num{font-family:'Playfair Display',serif;font-size:2.5rem;color:var(--white);font-weight:900;line-height:1}
+.hero-stat-num span{font-size:1.2rem;color:var(--gold)}
+.hero-stat-label{font-size:.78rem;color:rgba(255,255,255,.4);margin-top:.3rem;line-height:1.4}
+@keyframes fadeInDown{0%{opacity:0;transform:translateY(30px)}100%{opacity:1;transform:translateY(0)}}
+
+/* Ticker */
+.ticker{background:var(--dark);padding:.8rem 0;overflow:hidden;border-top:1px solid rgba(201,169,110,.1);border-bottom:1px solid rgba(201,169,110,.1)}
+.ticker-track{display:flex;width:max-content;animation:tickerScroll 35s linear infinite}
+.ticker-item{white-space:nowrap;padding:0 2.5rem;font-size:.85rem;color:rgba(255,255,255,.5);font-weight:500;display:flex;align-items:center;gap:.5rem}
+.ticker-item::before{content:'◆';color:var(--gold);font-size:.5rem}
+@keyframes tickerScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* Common */
+.container{max-width:1100px;margin:0 auto;padding:0 1.5rem}
+section{padding:6rem 0}
+.slb{display:inline-block;padding:.4rem 1.2rem;background:rgba(233,69,96,.08);color:var(--accent);font-size:.75rem;font-weight:700;border-radius:50px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:1rem}
+.stt{font-family:'Noto Serif KR',serif;font-size:clamp(1.8rem,4vw,2.8rem);font-weight:900;line-height:1.3;margin-bottom:1rem;color:var(--primary)}
+.stt em{font-style:normal;color:var(--accent)}
+.sdesc{font-size:1.05rem;color:var(--text-light);line-height:1.9;max-width:600px}
+.text-center{text-align:center}
+.mx-auto{margin-left:auto;margin-right:auto}
+
+/* Problem */
+.problem{background:var(--white)}
+.problem-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.5rem;margin-top:3rem}
+.problem-card{padding:2rem;background:var(--cream);border-radius:var(--rm);border:1px solid rgba(0,0,0,.05);transition:transform .3s,box-shadow .3s}
+.problem-card:hover{transform:translateY(-4px);box-shadow:var(--sm)}
+.problem-icon{font-size:2rem;margin-bottom:1rem}
+.problem-card h4{font-size:1.1rem;font-weight:700;margin-bottom:.5rem}
+.problem-card p{font-size:.92rem;color:var(--text-light);line-height:1.7}
+.problem-card .problem-cost{color:var(--accent);font-weight:700;font-size:.95rem;margin-top:.5rem}
+
+/* Quote */
+.quote-section{background:var(--gh);padding:5rem 2rem;text-align:center}
+.quote-mark{font-family:'Playfair Display',serif;font-size:5rem;color:var(--gold);line-height:1;opacity:.4}
+.quote-text{font-family:'Noto Serif KR',serif;font-size:clamp(1.2rem,3vw,1.8rem);color:var(--white);line-height:1.8;max-width:700px;margin:1rem auto 1.5rem}
+.quote-author{color:var(--gold-light);font-size:.9rem;font-weight:500}
+.quote-label{display:inline-block;margin-top:1rem;padding:.4rem 1rem;border:1px solid rgba(201,169,110,.3);border-radius:50px;font-size:.78rem;color:var(--gold-light);letter-spacing:.05em}
+
+/* Parallax banner */
+.pbanner{position:relative;height:400px;overflow:hidden}
+.pbanner-bg{position:absolute;inset:-50px;background-size:cover;background-position:center;background-attachment:fixed;filter:brightness(.7)}
+@media(max-width:768px){.pbanner-bg{background-attachment:scroll}}
+.pbanner-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(7,7,17,.4) 0%,rgba(7,7,17,.7) 100%)}
+.pbanner-content{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;text-align:center;padding:2rem}
+.pbanner-content h3{font-family:'Noto Serif KR',serif;font-size:clamp(1.5rem,3.5vw,2.4rem);color:var(--white);font-weight:900;line-height:1.4;margin-bottom:.8rem}
+.pbanner-content p{color:rgba(255,255,255,.65);font-size:1.05rem}
+
+/* Products */
+.products{background:var(--white)}
+.pshow{display:grid;grid-template-columns:repeat(2,1fr);gap:2rem;margin-top:3rem}
+@media(max-width:680px){.pshow{grid-template-columns:1fr}}
+.pc{background:var(--cream);border-radius:var(--rl);overflow:hidden;border:1px solid rgba(0,0,0,.06);transition:transform .4s,box-shadow .4s}
+.pc:hover{transform:translateY(-8px);box-shadow:var(--sl)}
+.pc-iw{position:relative;overflow:hidden;aspect-ratio:4/3;background:#e8e4de}
+.pc-badge{position:absolute;top:1rem;left:1rem;z-index:3;padding:.35rem 1rem;background:var(--gf);color:#fff;font-size:.72rem;font-weight:700;border-radius:50px;letter-spacing:.05em}
+.pc-img{width:100%;height:100%;object-fit:cover;transition:transform .6s ease}
+.pc:hover .pc-img{transform:scale(1.08)}
+.pc-overlay{position:absolute;bottom:0;left:0;right:0;height:40%;background:linear-gradient(transparent,rgba(0,0,0,.3));pointer-events:none;z-index:2}
+.pc-body{padding:1.8rem}
+.pc-name{font-family:'Noto Serif KR',serif;font-size:1.25rem;font-weight:700;margin-bottom:.4rem}
+.pc-desc{font-size:.88rem;color:var(--text-light);line-height:1.7;margin-bottom:1rem}
+.pc-footer{display:flex;align-items:flex-end;justify-content:space-between}
+.pc-price{font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:900;color:var(--accent)}
+.pc-price small{font-family:'Noto Sans KR',sans-serif;font-size:.8rem;font-weight:500;color:var(--text-light)}
+.pc-market{font-size:.78rem;color:var(--text-light);text-decoration:line-through;margin-bottom:.2rem}
+.pc-save{display:inline-block;padding:.15rem .5rem;background:rgba(233,69,96,.1);color:var(--accent);font-size:.72rem;font-weight:700;border-radius:4px;margin-bottom:.3rem}
+.pc-rating{display:flex;align-items:center;gap:.3rem;font-size:.85rem;color:var(--gold);font-weight:600}
+.pc-rating small{font-size:.75rem;color:var(--text-light);font-weight:400}
+
+/* Price Table */
+.price-table-wrap{margin-top:3.5rem;overflow-x:auto}
+.price-table{width:100%;border-collapse:separate;border-spacing:0;border-radius:var(--rm);overflow:hidden;box-shadow:var(--sm)}
+.price-table thead th{background:var(--primary);color:var(--white);padding:1.2rem 1.5rem;font-size:.85rem;font-weight:700;text-align:left;letter-spacing:.05em}
+.price-table tbody td{padding:1rem 1.5rem;font-size:.92rem;border-bottom:1px solid rgba(0,0,0,.05);background:var(--white)}
+.price-table tbody tr:hover td{background:rgba(233,69,96,.03)}
+.price-table .highlight-row td{background:rgba(233,69,96,.06);font-weight:700}
+.price-table .price-cell{font-family:'Playfair Display',serif;font-weight:700;color:var(--accent);font-size:1.05rem}
+.price-table .market-cell{font-size:.82rem;color:var(--text-light);text-decoration:line-through}
+.price-table .save-cell{font-size:.82rem;color:var(--accent);font-weight:700}
+.badge-best{display:inline-block;padding:.15rem .6rem;background:var(--gf);color:#fff;font-size:.65rem;font-weight:700;border-radius:50px;vertical-align:middle;margin-left:.4rem}
+.badge-star{color:var(--gold)}
+.price-table-note{font-size:.78rem;color:var(--text-light);text-align:right;margin-top:10px;font-weight:300}
+
+/* Calculator */
+.calc-box{margin-top:3rem;background:var(--gh);border-radius:var(--rl);padding:3rem;color:var(--white)}
+.calc-box h3{font-family:'Noto Serif KR',serif;font-size:1.4rem;margin-bottom:.5rem;text-align:center}
+.calc-box .calc-sub{text-align:center;color:rgba(255,255,255,.5);font-size:.88rem;margin-bottom:2rem}
+.calc-row{display:flex;justify-content:space-between;align-items:center;padding:.9rem 0;border-bottom:1px solid rgba(255,255,255,.08)}
+.calc-row:last-child{border-bottom:none}
+.calc-label{font-size:.92rem;color:rgba(255,255,255,.6)}
+.calc-value{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;color:var(--gold)}
+.calc-result{font-size:1.6rem;color:var(--accent);text-shadow:0 0 30px rgba(233,69,96,.3)}
+.calc-compare{margin-top:1.5rem;padding:1.2rem;background:rgba(255,255,255,.05);border-radius:var(--rm);border:1px solid rgba(255,255,255,.08);text-align:center}
+.calc-compare p{font-size:.9rem;color:rgba(255,255,255,.6);line-height:1.7}
+.calc-compare strong{color:var(--gold);font-size:1.05rem}
+.calc-compare .big-save{font-family:'Playfair Display',serif;font-size:1.8rem;color:var(--accent);font-weight:900;display:block;margin-top:.5rem}
+
+/* Bulk */
+.bulk{background:var(--cream);padding:4rem 0}
+.bulk-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.5rem;margin-top:2rem}
+.bulk-card{text-align:center;padding:2rem 1.5rem;background:var(--white);border-radius:var(--rm);border:1px solid rgba(0,0,0,.06);transition:transform .3s}
+.bulk-card:hover{transform:translateY(-4px)}
+.bulk-card.featured{border-color:var(--accent);background:linear-gradient(135deg,rgba(233,69,96,.03),rgba(255,107,53,.03));position:relative}
+.bulk-card.featured::before{content:'사장님들이 가장 많이 선택';position:absolute;top:-12px;left:50%;transform:translateX(-50%);padding:.25rem .8rem;background:var(--gf);color:#fff;font-size:.68rem;font-weight:700;border-radius:50px;white-space:nowrap}
+.bulk-qty{font-family:'Playfair Display',serif;font-size:2rem;font-weight:900;color:var(--primary)}
+.bulk-qty span{font-size:.9rem;font-weight:400;color:var(--text-light)}
+.bulk-label{font-size:.8rem;color:var(--text-light);margin:.5rem 0}
+.bulk-discount{font-size:1.1rem;font-weight:700;color:var(--accent)}
+
+/* Trust / Reviews */
+.trust{background:var(--white);padding:6rem 0}
+.review-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem;margin-top:3rem}
+@media(max-width:680px){.review-grid{grid-template-columns:1fr}}
+.review-capture{border-radius:var(--rm);overflow:hidden;border:1px solid rgba(0,0,0,.08);background:var(--cream);transition:transform .3s,box-shadow .3s}
+.review-capture:hover{transform:translateY(-4px);box-shadow:var(--sm)}
+.review-capture-placeholder{padding:3rem 2rem;text-align:center;color:var(--text-light);font-size:.9rem;line-height:1.8}
+.review-capture-placeholder .rc-icon{font-size:2.5rem;margin-bottom:1rem;opacity:.4}
+.review-capture-placeholder strong{color:var(--text);display:block;margin-bottom:.5rem;font-size:1rem}
+.review-source{padding:1rem 1.5rem;background:var(--white);border-top:1px solid rgba(0,0,0,.05);display:flex;align-items:center;justify-content:space-between}
+.review-source-label{font-size:.75rem;color:var(--text-light)}
+.review-source-badge{font-size:.7rem;padding:.2rem .6rem;background:rgba(34,197,94,.1);color:#22c55e;border-radius:50px;font-weight:600}
+
+.cert-grid{display:flex;flex-wrap:wrap;justify-content:center;gap:1rem;margin-top:2rem}
+.cert-badge{display:inline-flex;align-items:center;gap:.5rem;padding:.6rem 1.2rem;background:var(--cream);border-radius:50px;font-size:.8rem;font-weight:600;color:var(--text);border:1px solid rgba(0,0,0,.06)}
+.cert-badge::before{content:'✓';color:var(--accent);font-weight:700}
+
+/* Process */
+.process{background:var(--cream)}
+.process-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:3rem;position:relative;max-width:900px;margin-left:auto;margin-right:auto}
+@media(max-width:768px){.process-grid{grid-template-columns:1fr;gap:0}}
+.process-step{text-align:center;position:relative;padding:2rem 1.5rem}
+.process-step-dot{width:48px;height:48px;border-radius:50%;background:var(--gf);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:900;font-size:1.1rem;margin:0 auto 1.2rem;position:relative;z-index:2;box-shadow:0 4px 20px rgba(233,69,96,.25)}
+.process-step-line{position:absolute;top:3.5rem;left:calc(50% + 24px);right:calc(-50% + 24px);height:3px;background:linear-gradient(90deg,var(--accent),var(--gold));z-index:1;border-radius:2px}
+.process-step:last-child .process-step-line{display:none}
+@media(max-width:768px){
+  .process-step-line{display:none !important}
+  .process-step{padding:1.5rem;text-align:left;display:flex;align-items:flex-start;gap:1.2rem}
+  .process-step-dot{margin:0;flex-shrink:0}
+}
+.process-step h4{font-size:1.05rem;font-weight:700;margin-bottom:.4rem}
+.process-step p{font-size:.88rem;color:var(--text-light);line-height:1.7}
+.process-note{margin-top:2.5rem;text-align:center;padding:1.5rem 2rem;background:var(--white);border-radius:var(--rm);border:1px solid rgba(0,0,0,.06);max-width:700px;margin-left:auto;margin-right:auto}
+.process-note-title{font-weight:700;color:var(--accent);font-size:.9rem;margin-bottom:.5rem;display:flex;align-items:center;justify-content:center;gap:.4rem}
+.process-note p{font-size:.88rem;color:var(--text-light);line-height:1.8}
+.process-note strong{color:var(--text);font-weight:700}
+
+/* Test CTA */
+.test-cta{background:var(--gh);padding:5rem 0;text-align:center;color:var(--white)}
+.test-box{max-width:600px;margin:2rem auto 0;background:rgba(255,255,255,.05);border-radius:var(--rl);padding:2.5rem;border:1px solid rgba(255,255,255,.08)}
+.test-row{display:flex;justify-content:space-between;align-items:center;padding:.8rem 0;border-bottom:1px solid rgba(255,255,255,.06)}
+.test-row:last-child{border-bottom:none}
+.test-label{font-size:.9rem;color:rgba(255,255,255,.6)}
+.test-value{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;color:var(--gold)}
+.test-total{margin-top:1.5rem;padding-top:1.5rem;border-top:2px solid rgba(201,169,110,.3)}
+.test-total .test-value{font-size:2rem;color:var(--accent)}
+.test-guarantee{margin-top:1.5rem;padding:1rem;background:rgba(201,169,110,.08);border-radius:var(--rm);border:1px solid rgba(201,169,110,.15)}
+.test-guarantee p{font-size:.85rem;color:var(--gold-light);line-height:1.7}
+.btn-test{display:inline-block;margin-top:2rem;padding:1.1rem 3rem;background:var(--gf);color:#fff;font-weight:700;font-size:1.05rem;border-radius:60px;border:none;cursor:pointer;transition:transform .3s,box-shadow .3s}
+.btn-test:hover{transform:translateY(-3px);box-shadow:0 12px 40px rgba(233,69,96,.35)}
+.test-freedom{margin-top:1rem;font-size:.85rem;color:rgba(255,255,255,.45)}
+
+/* Shipping info */
+.shipping-info{background:var(--white);text-align:center;padding:4rem 0}
+.shipping-fact{font-family:'Noto Serif KR',serif;font-size:1.3rem;font-weight:700;margin-bottom:.5rem}
+.shipping-detail{color:var(--text-light);font-size:.95rem}
+
+/* Story */
+.story{background:var(--cream);padding:6rem 0}
+.story-content{max-width:700px;margin:0 auto;font-size:1rem;line-height:2;color:var(--text)}
+.story-content p{margin-bottom:1.5rem}
+.story-content strong{color:var(--accent);font-weight:700}
+
+/* Final CTA */
+.final-cta{background:var(--gh);padding:6rem 2rem;text-align:center;position:relative;overflow:hidden}
+.final-cta h2{font-family:'Noto Serif KR',serif;font-size:clamp(1.8rem,4vw,2.8rem);color:var(--white);font-weight:900;margin-bottom:1rem}
+.final-cta h2 em{font-style:normal;background:var(--gf);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.final-cta p{color:rgba(255,255,255,.6);font-size:1.05rem;margin-bottom:2.5rem}
+.btn-final{display:inline-block;padding:1.2rem 3.5rem;background:var(--gf);color:#fff;font-weight:700;font-size:1.1rem;border-radius:60px;transition:transform .3s,box-shadow .3s}
+.btn-final:hover{transform:translateY(-3px);box-shadow:0 15px 50px rgba(233,69,96,.4)}
+.btn-final-secondary{display:inline-block;padding:1.2rem 3.5rem;background:transparent;border:1px solid rgba(201,169,110,.4);color:var(--gold-light);font-weight:700;font-size:1.1rem;border-radius:60px;transition:all .3s}
+.btn-final-secondary:hover{background:rgba(201,169,110,.1);border-color:var(--gold)}
+.final-freedom{margin-top:1.5rem;font-size:.88rem;color:rgba(255,255,255,.4)}
+
+/* Footer */
+.footer{background:var(--dark);padding:4rem 2rem;text-align:center;color:rgba(255,255,255,.4)}
+.footer-logo{font-family:'Noto Serif KR',serif;font-size:1.5rem;color:var(--gold);margin-bottom:1rem}
+.footer-info{font-size:.82rem;line-height:2.2;margin-bottom:1.5rem}
+.footer-certs{display:flex;flex-wrap:wrap;justify-content:center;gap:.8rem;margin-bottom:1.5rem}
+.footer-cert{padding:.4rem 1rem;font-size:.75rem;background:rgba(255,255,255,.05);border-radius:50px;border:1px solid rgba(255,255,255,.08)}
+.footer-copy{font-size:.75rem;opacity:.5}
+
+/* Floating CTA */
+.floating-cta{position:fixed;bottom:2rem;right:2rem;z-index:999;display:flex;flex-direction:column;gap:.6rem;opacity:0;transform:translateY(20px);transition:all .4s ease;pointer-events:none}
+.floating-cta.visible{opacity:1;transform:translateY(0);pointer-events:all}
+.floating-btn{display:inline-block;padding:.8rem 2rem;border-radius:50px;font-weight:700;font-size:.85rem;text-align:center;transition:transform .3s,box-shadow .3s;box-shadow:var(--sm)}
+.floating-btn:hover{transform:translateY(-2px)}
+.floating-btn-primary{background:var(--gf);color:#fff}
+.floating-btn-secondary{background:var(--white);color:var(--primary);border:1px solid rgba(0,0,0,.1)}
+
+/* Scroll reveal */
+.rv{opacity:0;transform:translateY(40px);transition:opacity .8s ease,transform .8s ease}
+.rv.visible{opacity:1;transform:translateY(0)}
+.rs{opacity:0;transform:scale(.9);transition:opacity .8s ease,transform .8s ease}
+.rs.visible{opacity:1;transform:scale(1)}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}
+
+@media(max-width:768px){
+  .hero-stats{flex-direction:column;gap:1.5rem}
+  .pshow{grid-template-columns:1fr}
+  .pbanner{height:300px}
+  section{padding:4rem 0}
+}
+@media(max-width:480px){
+  .top-logo{font-size:1rem}
+  .top-cta{padding:.5rem 1rem;font-size:.75rem}
+}
+</style>
+</head>
+<body>
+<div class="noise"></div>
+<div class="cursor-glow" id="cg"></div>
+
+<!-- ===== TOP BAR ===== -->
+<header class="top-bar" id="tb">
+  <div class="top-bar-inner">
+    <a href="#" class="top-logo"><span>전국국밥</span>거래소</a>
+    <a href="https://open.kakao.com/o/pRSmEn9h" class="top-cta">카톡 상담하기</a>
+  </div>
+</header>
+
+<!-- ===== HERO ===== -->
+<section class="hero" id="hero">
+  <div class="hero-particles" id="hp"></div>
+  <div class="hero-orb hero-orb-1"></div>
+  <div class="hero-orb hero-orb-2"></div>
+  <div class="hero-orb hero-orb-3"></div>
+  <div class="hero-content">
+    <div class="hero-badge">HACCP 인증 도축공장 · SINCE 2004 · 21년 운영</div>
+    <h1>국밥 한 그릇 내장 원가<br><em>단돈 650원</em></h1>
+    <p class="hero-sub">도축공장에서 매일 직접 삶아서, 중간 유통 없이<br>사장님 가게까지 바로 보내드립니다.</p>
+    <p class="hero-proof">새림(유한회사)이 <strong>21년간 운영한 HACCP 인증 공장</strong>에서 직접 생산합니다.<br>도매상을 거치지 않으니 같은 품질, 더 낮은 가격이 가능해요.</p>
+    <div class="hero-cta-group">
+      <a href="https://open.kakao.com/o/pRSmEn9h" class="btn-hero-primary">카톡으로 샘플 신청하기 →</a>
+      <a href="https://vo.la/RFDWcIg" class="btn-hero-secondary">스마트스토어에서 직접 주문</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="hero-stat-num" data-count="21">0<span>년</span></div>
+        <div class="hero-stat-label">도축공장 운영</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num" data-count="220">0<span>억</span></div>
+        <div class="hero-stat-label">새림 연매출 규모</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">4.94<span>★</span></div>
+        <div class="hero-stat-label">스마트스토어 실제 평점</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== TICKER ===== -->
+<div class="ticker">
+  <div class="ticker-track">
+    <div class="ticker-item">HACCP 인증 공장 직송</div>
+    <div class="ticker-item">매일 도축 · 매일 생산 · 매일 출고</div>
+    <div class="ticker-item">전국 익일 배송 (오전 10시 이전 주문)</div>
+    <div class="ticker-item">공장 → 사장님 가게, 중간 유통 0단계</div>
+    <div class="ticker-item">국밥 · 순대국 · 수육 · 내장탕 재료 전문</div>
+    <div class="ticker-item">이마트 · 홈플러스 · 쿠팡 · 마켓컬리 납품 실적</div>
+    <div class="ticker-item">HACCP 인증 공장 직송</div>
+    <div class="ticker-item">매일 도축 · 매일 생산 · 매일 출고</div>
+    <div class="ticker-item">전국 익일 배송 (오전 10시 이전 주문)</div>
+    <div class="ticker-item">공장 → 사장님 가게, 중간 유통 0단계</div>
+    <div class="ticker-item">국밥 · 순대국 · 수육 · 내장탕 재료 전문</div>
+    <div class="ticker-item">이마트 · 홈플러스 · 쿠팡 · 마켓컬리 납품 실적</div>
+  </div>
+</div>
+
+<!-- ===== PROBLEM ===== -->
+<section class="problem">
+  <div class="container text-center">
+    <div class="slb rv">Problem</div>
+    <h2 class="stt rv d1"><em>국밥집 사장님</em>, 이런 고민 있으시죠?</h2>
+    <p class="sdesc mx-auto rv d2">하나라도 해당되시면, 공급처를 바꾸는 것만으로 해결될 수 있어요.</p>
+    <div class="problem-grid">
+      <div class="problem-card rv d1">
+        <div class="problem-icon">📈</div>
+        <h4>도매상에서 사도 비싸요</h4>
+        <p>도매상도 마진을 남겨야 하니까요. 산지에서 사장님 가게까지 거치는 단계가 많을수록 가격은 올라갈 수밖에 없어요.</p>
+        <div class="problem-cost">→ 중간 유통을 거치면 kg당 2,000~3,000원을 더 내게 돼요</div>
+      </div>
+      <div class="problem-card rv d2">
+        <div class="problem-icon">😤</div>
+        <h4>품질이 올 때마다 달라요</h4>
+        <p>어떤 날은 괜찮고 어떤 날은 질기고… 도매상은 여러 공장에서 물건을 가져오니 품질이 들쭉날쭉할 수밖에 없어요.</p>
+        <div class="problem-cost">→ 국밥 맛이 달라지면 단골 손님이 떠나요</div>
+      </div>
+      <div class="problem-card rv d3">
+        <div class="problem-icon">🚛</div>
+        <h4>급할 때 재료를 못 구해요</h4>
+        <p>주말에 장사가 잘 되는데 재료가 모자라서 일찍 마감한 경험, 한 번이라도 있으시죠?</p>
+        <div class="problem-cost">→ 하루 못 열면 평균 50~80만원 매출 손실</div>
+      </div>
+      <div class="problem-card rv d4">
+        <div class="problem-icon">🏭</div>
+        <h4>공장 직거래를 어디서 하는지 모르겠어요</h4>
+        <p>도매상 → 중간상 → 소매상… 단계마다 마진이 붙는데, 도축공장에서 직접 사는 방법은 잘 안 알려져 있어요.</p>
+        <div class="problem-cost">→ 유통 단계 하나 줄이면 월 30~50만원 절약 가능</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== QUOTE ===== -->
+<div class="quote-section">
+  <div class="quote-mark rv">"</div>
+  <p class="quote-text rv d1">좋은 국밥은 좋은 재료에서 시작됩니다.<br>저희는 21년간 이마트, 홈플러스, 쿠팡, 마켓컬리에<br>납품해 온 HACCP 인증 공장입니다.</p>
+  <div class="quote-author rv d2">— 유한회사 새림 · 2004년 창립 · 전북 군산</div>
+  <div class="quote-label rv d3">이제 같은 품질의 재료를, 사장님 가게에 직접 보내드립니다</div>
+</div>
+
+<!-- ===== PARALLAX BANNER 1 ===== -->
+<div class="pbanner">
+  <div class="pbanner-bg" style="background-image:url('https://i.ibb.co/cK3rZCcc/Kakao-Talk-Photo-2026-02-26-14-14-47.jpg')"></div>
+  <div class="pbanner-overlay"></div>
+  <div class="pbanner-content">
+    <h3 class="rv">도매상을 빼면<br>이만큼 남아요</h3>
+    <p class="rv d2">공장 → 사장님 가게. 중간 유통 0단계.</p>
+  </div>
+</div>
+
+<!-- ===== SOLUTION ===== -->
+<section style="background:var(--cream);padding:6rem 0">
+  <div class="container text-center">
+    <div class="slb rv">Solution</div>
+    <h2 class="stt rv d1">전국국밥거래소가 <em>직접</em> 보내드릴게요</h2>
+    <p class="sdesc mx-auto rv d2" style="margin-bottom:2rem">21년 운영한 HACCP 인증 도축공장에서 매일 직접 도축하고 삶아서, 진공 포장 후 사장님 가게로 보내드려요.</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.5rem;text-align:left;max-width:900px;margin:0 auto">
+      <div class="problem-card rv d1" style="border-left:3px solid var(--accent)">
+        <h4>✅ 공장 직송 = 도매상보다 저렴</h4>
+        <p>중간 유통이 없으니 kg당 2,000~3,000원 절약. 같은 재료, 같은 품질인데 가격만 내려가요.</p>
+      </div>
+      <div class="problem-card rv d2" style="border-left:3px solid var(--accent2)">
+        <h4>✅ 매일 도축 = 항상 같은 품질</h4>
+        <p>한 공장에서 매일 직접 도축하고 삶으니 품질이 일정해요. "오늘은 왜 이래?" 하는 날이 사라져요.</p>
+      </div>
+      <div class="problem-card rv d3" style="border-left:3px solid var(--gold)">
+        <h4>✅ 주문 다음날 도착 = 재고 걱정 끝</h4>
+        <p>오전 10시 이전 주문하시면 당일 출고, 전국 어디든 다음날 도착. 재료 떨어질 걱정 없이 장사에 집중하세요.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PRODUCTS ===== -->
+<section class="products" id="products">
+  <div class="container text-center">
+    <div class="slb rv">Products</div>
+    <h2 class="stt rv d1">도매상 대비 <em>최대 37% 절약</em></h2>
+    <p class="sdesc mx-auto rv d2">모든 제품은 저희 HACCP 인증 공장에서 매일 직접 생산합니다. 진공포장 후 냉동 직송.</p>
+
+    <div class="pshow">
+      <div class="pc rs d1">
+        <div class="pc-iw">
+          <span class="pc-badge">스마트스토어 판매 1위</span>
+          <img src="https://i.ibb.co/cK3rZCcc/Kakao-Talk-Photo-2026-02-26-14-14-47.jpg" alt="삶은 돈두 슬라이스" class="pc-img" loading="lazy">
+          <div class="pc-overlay"></div>
+        </div>
+        <div class="pc-body">
+          <div class="pc-name">삶은 돈두 슬라이스</div>
+          <div class="pc-desc">귀 없는 머릿고기 핵심 부위. 쫄깃한 식감, 깔끔한 맛. 국밥·수육 주재료로 가장 많이 찾으세요.</div>
+          <div class="pc-market">도매상 평균 납품가: 15,000원/kg</div>
+          <div class="pc-save">▼ 2,900원 절약</div>
+          <div class="pc-footer">
+            <div class="pc-price">12,100<small>원 / 1kg</small></div>
+            <div class="pc-rating">★ 4.83 <small>(리뷰 23건)</small></div>
+          </div>
+        </div>
+      </div>
+      <div class="pc rs d2">
+        <div class="pc-iw">
+          <span class="pc-badge">평점 5.0 만점</span>
+          <img src="https://i.ibb.co/tT3v7fVk/Kakao-Talk-Photo-2026-02-26-14-14-36-001.jpg" alt="삶은 소창 슬라이스" class="pc-img" loading="lazy">
+          <div class="pc-overlay"></div>
+        </div>
+        <div class="pc-body">
+          <div class="pc-name">삶은 소창 슬라이스</div>
+          <div class="pc-desc">고소하고 쫄깃한 소창. 균일한 두께로 커팅되어 바로 올리면 끝. 국밥 토핑의 핵심.</div>
+          <div class="pc-market">도매상 평균 납품가: 11,000원/kg</div>
+          <div class="pc-save">▼ 3,000원 절약</div>
+          <div class="pc-footer">
+            <div class="pc-price">8,000<small>원 / 1kg</small></div>
+            <div class="pc-rating">★ 5.00 <small>(리뷰 13건)</small></div>
+          </div>
+        </div>
+      </div>
+      <div class="pc rs d3">
+        <div class="pc-iw">
+          <span class="pc-badge">평점 5.0 만점</span>
+          <img src="https://i.ibb.co/TxLv2bgH/Kakao-Talk-Photo-2026-02-26-14-14-37-002.jpg" alt="삶은 염통 슬라이스" class="pc-img" loading="lazy">
+          <div class="pc-overlay"></div>
+        </div>
+        <div class="pc-body">
+          <div class="pc-name">삶은 염통 슬라이스</div>
+          <div class="pc-desc">쫄깃한 식감의 염통. 깨끗하게 처리해 잡내 없이 담백. 가격 대비 만족도가 가장 높아요.</div>
+          <div class="pc-market">도매상 평균 납품가: 8,500원/kg</div>
+          <div class="pc-save">▼ 2,500원 절약</div>
+          <div class="pc-footer">
+            <div class="pc-price">6,000<small>원 / 1kg</small></div>
+            <div class="pc-rating">★ 5.00 <small>(리뷰 4건)</small></div>
+          </div>
+        </div>
+      </div>
+      <div class="pc rs d4">
+        <div class="pc-iw">
+          <span class="pc-badge">특수부위</span>
+          <img src="https://i.ibb.co/xKMhjZNc/Kakao-Talk-Photo-2026-02-26-14-18-21.jpg" alt="삶은 오소리감투" class="pc-img" loading="lazy">
+          <div class="pc-overlay"></div>
+        </div>
+        <div class="pc-body">
+          <div class="pc-name">삶은 오소리감투</div>
+          <div class="pc-desc">독특한 쫄깃함. 돼지 위를 깨끗이 처리하여 국밥의 깊은 맛을 살려줘요.</div>
+          <div class="pc-market">도매상 평균 납품가: 13,000원/kg</div>
+          <div class="pc-save">▼ 3,100원 절약</div>
+          <div class="pc-footer">
+            <div class="pc-price">9,900<small>원 / 1kg</small></div>
+            <div class="pc-rating">★ 4.83 <small>(리뷰 6건)</small></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PRICE TABLE -->
+    <div style="margin-top:3.5rem">
+      <h3 style="font-family:'Noto Serif KR',serif;font-size:1.2rem;font-weight:700;color:var(--primary);margin-bottom:20px;text-align:center" class="rv">전 제품 가격표 — 도매상 납품가 대비 절약액</h3>
+      <div class="price-table-wrap rs d1">
+        <table class="price-table">
+          <thead><tr><th>재료</th><th>도매상 평균</th><th>공장 직송가</th><th>절약</th><th>실제 평점</th></tr></thead>
+          <tbody>
+            <tr><td>삶은 돈두 슬라이스 <span class="badge-best">판매1위</span></td><td class="market-cell">15,000원</td><td class="price-cell">12,100원</td><td class="save-cell">▼2,900원</td><td><span class="badge-star">★</span> 4.83 <small>(23)</small></td></tr>
+            <tr><td>삶은 목전지 슬라이스</td><td class="market-cell">18,000원</td><td class="price-cell">14,900원</td><td class="save-cell">▼3,100원</td><td><span class="badge-star">★</span> 4.94 <small>(16)</small></td></tr>
+            <tr><td>삶은 염통 슬라이스</td><td class="market-cell">8,500원</td><td class="price-cell">6,000원</td><td class="save-cell">▼2,500원</td><td><span class="badge-star">★</span> 5.00 <small>(4)</small></td></tr>
+            <tr><td>삶은 소창 슬라이스</td><td class="market-cell">11,000원</td><td class="price-cell">8,000원</td><td class="save-cell">▼3,000원</td><td><span class="badge-star">★</span> 5.00 <small>(13)</small></td></tr>
+            <tr><td>삶은 오소리감투</td><td class="market-cell">13,000원</td><td class="price-cell">9,900원</td><td class="save-cell">▼3,100원</td><td><span class="badge-star">★</span> 4.83 <small>(6)</small></td></tr>
+            <tr class="highlight-row"><td><strong>모듬내장</strong> (소창+오소리+염통) <span class="badge-best">가성비 최고</span></td><td class="market-cell">9,500원</td><td class="price-cell">6,500원</td><td class="save-cell">▼3,000원</td><td><span class="badge-star">★</span> 4.91 <small>(11)</small></td></tr>
+            <tr><td>삶은 통 소창 곱창</td><td class="market-cell">10,500원</td><td class="price-cell">7,500원</td><td class="save-cell">▼3,000원</td><td><span class="badge-star">★</span> 5.00 <small>(12)</small></td></tr>
+            <tr><td>삶은 통 염통</td><td class="market-cell">7,000원</td><td class="price-cell">5,000원</td><td class="save-cell">▼2,000원</td><td><span class="badge-star">★</span> 5.00 <small>(4)</small></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="price-table-note">배송비 3,500원 별도 · 평점은 네이버 스마트스토어 실제 리뷰 기준</p>
+    </div>
+
+    <!-- CALCULATOR -->
+    <div class="calc-box rv">
+      <h3>사장님 가게에서 얼마나 절약되는지 계산해 보세요</h3>
+      <p class="calc-sub">모듬내장(6,500원/kg) 기준으로 계산했어요</p>
+      <div class="calc-row"><span class="calc-label">모듬내장 1kg</span><span class="calc-value">6,500원</span></div>
+      <div class="calc-row"><span class="calc-label">국밥 1그릇 내장 사용량</span><span class="calc-value">약 100g</span></div>
+      <div class="calc-row"><span class="calc-label">1kg으로 만들 수 있는 그릇 수</span><span class="calc-value">10그릇</span></div>
+      <div class="calc-row"><span class="calc-label" style="font-weight:700;color:var(--white)">→ 한 그릇당 내장 재료비</span><span class="calc-value calc-result">단돈 650원</span></div>
+      <div class="calc-compare">
+        <p>하루 80그릇 × 30일 기준, 도매상 납품가 대비</p>
+        <strong>매달 절약 가능한 금액</strong>
+        <span class="big-save">월 720,000원</span>
+        <p style="margin-top:.5rem;font-size:.82rem;opacity:.6">사장님이 절약하시는 만큼이 곧 순이익이에요</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== BULK DISCOUNT ===== -->
+<section class="bulk">
+  <div class="container text-center">
+    <div class="slb rv">Bulk Order</div>
+    <h2 class="stt rv d1">많이 주문할수록 <em>더 할인</em>돼요</h2>
+    <p class="sdesc mx-auto rv d2">카카오톡으로 필요한 수량을 말씀해 주시면 견적 드려요.</p>
+    <div class="bulk-grid">
+      <div class="bulk-card rv d1"><div class="bulk-qty">10<span>kg</span></div><div class="bulk-label">첫 테스트용</div><div class="bulk-discount">표준가 적용</div></div>
+      <div class="bulk-card rv d2"><div class="bulk-qty">30<span>kg</span></div><div class="bulk-label">소규모 업소</div><div class="bulk-discount">3% 할인</div></div>
+      <div class="bulk-card featured rv d3"><div class="bulk-qty">50<span>kg+</span></div><div class="bulk-label">일반 업소</div><div class="bulk-discount">5~7% 할인</div></div>
+      <div class="bulk-card rv d4"><div class="bulk-qty">100<span>kg+</span></div><div class="bulk-label">대형 업소 · 프랜차이즈</div><div class="bulk-discount">별도 협의</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PARALLAX BANNER 2 ===== -->
+<div class="pbanner">
+  <div class="pbanner-bg" style="background-image:url('https://i.ibb.co/tT3v7fVk/Kakao-Talk-Photo-2026-02-26-14-14-36-001.jpg')"></div>
+  <div class="pbanner-overlay"></div>
+  <div class="pbanner-content">
+    <h3 class="rv">HACCP 인증 공장에서<br>직접 생산합니다</h3>
+    <p class="rv d2">식품안전관리인증 기준으로 매일 점검하고 있어요</p>
+  </div>
+</div>
+
+<!-- ===== TRUST / REVIEWS ===== -->
+<section class="trust">
+  <div class="container text-center">
+    <div class="slb rv">Reviews</div>
+    <h2 class="stt rv d1">네이버 스마트스토어 <em>실제 리뷰</em></h2>
+    <p class="sdesc mx-auto rv d2">아래는 실제 구매자분들의 리뷰입니다. 스마트스토어에서 직접 확인하실 수 있어요.</p>
+
+    <!-- 실제 리뷰 캡처 이미지를 넣는 영역 -->
+    <div class="review-grid">
+      <div class="review-capture rv d1">
+        <div class="review-capture-placeholder">
+          <div class="rc-icon">📱</div>
+          <strong>스마트스토어 리뷰 캡처 이미지 ①</strong>
+          실제 리뷰 스크린샷을 여기에 넣어주세요.<br>
+          텍스트보다 캡처 이미지가 10배 더 신뢰를 줍니다.
+        </div>
+        <div class="review-source">
+          <span class="review-source-label">네이버 스마트스토어 실제 리뷰</span>
+          <span class="review-source-badge">인증됨</span>
+        </div>
+      </div>
+      <div class="review-capture rv d2">
+        <div class="review-capture-placeholder">
+          <div class="rc-icon">📱</div>
+          <strong>스마트스토어 리뷰 캡처 이미지 ②</strong>
+          실제 리뷰 스크린샷을 여기에 넣어주세요.<br>
+          가격, 품질, 배송 관련 후기가 효과적이에요.
+        </div>
+        <div class="review-source">
+          <span class="review-source-label">네이버 스마트스토어 실제 리뷰</span>
+          <span class="review-source-badge">인증됨</span>
+        </div>
+      </div>
+      <div class="review-capture rv d3">
+        <div class="review-capture-placeholder">
+          <div class="rc-icon">📱</div>
+          <strong>스마트스토어 리뷰 캡처 이미지 ③</strong>
+          실제 리뷰 스크린샷을 여기에 넣어주세요.<br>
+          "재주문", "정기거래" 언급 리뷰가 가장 효과적이에요.
+        </div>
+        <div class="review-source">
+          <span class="review-source-label">네이버 스마트스토어 실제 리뷰</span>
+          <span class="review-source-badge">인증됨</span>
+        </div>
+      </div>
+    </div>
+
+    <p class="rv d4" style="margin-top:2rem;font-size:.88rem;color:var(--text-light)">
+      현재 스마트스토어 전체 평균 평점 <strong style="color:var(--accent)">4.94점</strong> · 모든 리뷰는 실제 구매 후 작성된 것입니다
+    </p>
+
+    <!-- 인증 뱃지 -->
+    <h3 class="stt rv d1" style="font-size:1.5rem;margin-top:4rem">인증 · 허가</h3>
+    <div class="cert-grid rv d2">
+      <div class="cert-badge">HACCP 인증</div>
+      <div class="cert-badge">ISO 9001 품질경영</div>
+      <div class="cert-badge">ISO 14001 환경경영</div>
+      <div class="cert-badge">Inno-Biz 기술혁신 중소기업</div>
+      <div class="cert-badge">무항생제 축산물 인증</div>
+      <div class="cert-badge">식육포장처리업 허가</div>
+      <div class="cert-badge">축산물가공업 영업허가</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PROCESS ===== -->
+<section class="process">
+  <div class="container">
+    <div class="text-center">
+      <div class="slb rv">How to Order</div>
+      <h2 class="stt rv d1">주문부터 배송까지 <em>이렇게</em> 진행돼요</h2>
+    </div>
+    <div class="process-grid">
+      <div class="process-step rv d1">
+        <div class="process-step-dot">1</div>
+        <div class="process-step-line"></div>
+        <div><h4>카톡으로 문의</h4><p>카카오톡으로 "샘플 신청"이라고 보내주세요. 필요한 제품과 수량을 여쭤볼게요.</p></div>
+      </div>
+      <div class="process-step rv d2">
+        <div class="process-step-dot">2</div>
+        <div class="process-step-line"></div>
+        <div><h4>당일 생산 · 출고</h4><p>오전 10시 이전 확정 주문은 당일 도축 → 삶기 → 진공포장 → 출고해요.</p></div>
+      </div>
+      <div class="process-step rv d3">
+        <div class="process-step-dot">3</div>
+        <div class="process-step-line"></div>
+        <div><h4>다음날 도착</h4><p>전국 어디든 냉동 택배로 다음날 사장님 가게 앞에 도착합니다.</p></div>
+      </div>
+      <div class="process-step rv d4">
+        <div class="process-step-dot">✓</div>
+        <div><h4>써보시고 결정하세요</h4><p>맛과 품질을 직접 확인하신 후, 정기 거래 여부는 자유롭게 결정하시면 돼요.</p></div>
+      </div>
+    </div>
+    <div class="process-note rv">
+      <div class="process-note-title">📦 소량도 대량도 모두 가능해요</div>
+      <p><strong>대량 주문</strong>은 주문량에 맞춰 직접 도축·생산해서 가장 신선한 상태로 보내드려요.<br>
+      <strong>소량 주문</strong>은 매일 생산해 둔 제품을 바로 출고해 드리니 소량이라도 빠르게 받아보실 수 있어요.<br>
+      어떤 주문이든 저희 공장에서 직접 만든 제품만 나갑니다.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PARALLAX BANNER 3 ===== -->
+<div class="pbanner">
+  <div class="pbanner-bg" style="background-image:url('https://i.ibb.co/TxLv2bgH/Kakao-Talk-Photo-2026-02-26-14-14-37-002.jpg')"></div>
+  <div class="pbanner-overlay"></div>
+  <div class="pbanner-content">
+    <h3 class="rv">한 번 써보시면 압니다.<br>다르다는 거.</h3>
+    <p class="rv d2">21년 도축공장의 노하우, 한 그릇에 담았습니다</p>
+  </div>
+</div>
+
+<!-- ===== TEST CTA ===== -->
+<section class="test-cta">
+  <div class="container">
+    <div class="slb rv" style="background:rgba(233,69,96,.15)">First Order</div>
+    <h2 class="stt rv d1" style="color:var(--white)">처음이시라면, <em>소량 테스트</em>부터 해보세요</h2>
+    <p class="sdesc mx-auto rv d2" style="color:rgba(255,255,255,.6)">스마트스토어에서 소량 주문도 가능하고, 카톡으로 샘플 신청도 가능해요.</p>
+    <div class="test-box rv">
+      <div class="test-row"><span class="test-label">모듬내장 1kg</span><span class="test-value">6,500원</span></div>
+      <div class="test-row"><span class="test-label">돈두 슬라이스 1kg</span><span class="test-value">12,100원</span></div>
+      <div class="test-row"><span class="test-label">냉동 택배비</span><span class="test-value">3,500원</span></div>
+      <div class="test-row test-total"><span class="test-label" style="font-weight:700;color:var(--white)">총 테스트 비용 (예시)</span><span class="test-value">22,100원</span></div>
+      <div class="test-guarantee">
+        <p>써보시고 마음에 안 드시면 정기거래를 안 하셔도 전혀 괜찮아요.<br>부담 없이 테스트만 해보세요. <strong>선택은 사장님의 자유입니다.</strong></p>
+      </div>
+    </div>
+    <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-top:2rem" class="rv d3">
+      <a href="https://open.kakao.com/o/pRSmEn9h" class="btn-test">카톡으로 샘플 신청하기 →</a>
+      <a href="https://vo.la/RFDWcIg" class="btn-test" style="background:transparent;border:1px solid rgba(201,169,110,.4);color:var(--gold-light)">스마트스토어에서 직접 주문</a>
+    </div>
+    <div class="test-freedom rv d4">품질로 증명하겠습니다. 강요하지 않아요.</div>
+  </div>
+</section>
+
+<!-- ===== SHIPPING INFO (가짜 카운터 대신 팩트) ===== -->
+<section class="shipping-info">
+  <div class="container rv">
+    <div class="shipping-fact">오전 10시 이전 주문 → 당일 출고 → 다음날 도착</div>
+    <p class="shipping-detail">전국 어디든 냉동 택배로 보내드려요. 대량 주문은 냉동 탑차 직배송도 가능합니다.</p>
+  </div>
+</section>
+
+<!-- ===== STORY ===== -->
+<section class="story">
+  <div class="container">
+    <div class="text-center">
+      <div class="slb rv">Our Story</div>
+      <h2 class="stt rv d1">21년, <em>오직 한 길</em></h2>
+    </div>
+    <div class="story-content rv d2">
+      <p>2004년, 전북 군산의 작은 공장에서 시작했어요. 처음에는 하루에 50kg 생산할까 말까 했어요. 밤새 삶아 포장하고, 새벽에 직접 배달하러 다녔습니다.</p>
+      <p>21년이 지난 지금, 새림은 <strong>연매출 220억 원 규모의 HACCP 인증 도축·제조 공장</strong>이 되었어요. 이마트, 홈플러스, 쿠팡, 마켓컬리에 납품하고, 목우촌·오아시스 OEM 생산도 하고 있습니다.</p>
+      <p>그런데 한 가지 아쉬운 게 있었어요. <strong>저희가 만든 좋은 재료가 중간 유통을 거치면서 가격이 올라가고, 정작 국밥집 사장님들은 비싸게 사고 계시더라고요.</strong></p>
+      <p>그래서 만든 게 '전국국밥거래소'예요. 도매상을 거치지 않고, 저희 공장에서 사장님 가게로 직접 보내드리는 거죠. 같은 품질인데 가격만 내려가니까, 사장님이 절약하신 만큼이 곧 순이익이 돼요.</p>
+      <p>아직 저희를 모르셨다면, 소량 테스트부터 편하게 시작해 보세요. <strong>맛으로, 품질로, 가격으로 증명해 드릴게요.</strong></p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FINAL CTA ===== -->
+<section class="final-cta">
+  <div class="hero-orb hero-orb-1" style="opacity:.1"></div>
+  <div class="hero-orb hero-orb-2" style="opacity:.1"></div>
+  <div style="position:relative;z-index:2">
+    <h2 class="rv">국밥 한 그릇 내장 원가 <em>650원</em><br>직접 확인해 보세요</h2>
+    <p class="rv d1">21년 도축공장에서 직접 만들어 직접 보내드립니다.</p>
+    <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap" class="rv d2">
+      <a href="https://open.kakao.com/o/pRSmEn9h" class="btn-final">카톡으로 샘플 신청 →</a>
+      <a href="https://vo.la/RFDWcIg" class="btn-final-secondary">스마트스토어에서 직접 주문</a>
+    </div>
+    <div class="final-freedom rv d3">써보시고 결정하세요. 선택은 사장님의 자유예요.</div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+  <div class="footer-logo">전국국밥거래소</div>
+  <div class="footer-info">
+    유한회사 새림 · 대표: 최인환<br>
+    사업자등록번호: 481-86-00066 · 법인등록번호: 211114-0032627<br>
+    주소: 전북특별자치도 군산시 옥산면 신성로 154<br>
+    TEL: 063-464-8681 · FAX: 063-464-8683<br>
+    E-MAIL: serim6408@naver.com
+  </div>
+  <div class="footer-certs">
+    <div class="footer-cert">HACCP 인증</div>
+    <div class="footer-cert">ISO 9001 / 14001</div>
+    <div class="footer-cert">Inno-Biz 인증</div>
+    <div class="footer-cert">식육포장처리업</div>
+    <div class="footer-cert">축산물가공업</div>
+    <div class="footer-cert">통신판매업</div>
+  </div>
+  <div class="footer-copy">© 2004–2026 유한회사 새림. All rights reserved.</div>
+</footer>
+
+<!-- ===== FLOATING CTA ===== -->
+<div class="floating-cta" id="fc">
+  <a href="https://open.kakao.com/o/pRSmEn9h" class="floating-btn floating-btn-primary">💬 카톡 샘플 신청</a>
+  <a href="https://vo.la/RFDWcIg" class="floating-btn floating-btn-secondary">스마트스토어 주문</a>
+</div>
+
+<script>
+// Cursor glow
+const cg=document.getElementById('cg');
+document.addEventListener('mousemove',e=>{cg.style.left=e.clientX+'px';cg.style.top=e.clientY+'px'});
+
+// Hero particles
+(function(){const c=document.getElementById('hp');for(let i=0;i<25;i++){const p=document.createElement('div');p.className='hero-particle';p.style.left=Math.random()*100+'%';p.style.animationDelay=Math.random()*8+'s';p.style.animationDuration=(6+Math.random()*6)+'s';c.appendChild(p)}})();
+
+// Scroll nav
+const tb=document.getElementById('tb');
+window.addEventListener('scroll',()=>{tb.classList.toggle('scrolled',window.scrollY>80)});
+
+// Floating CTA
+const fc=document.getElementById('fc');
+window.addEventListener('scroll',()=>{fc.classList.toggle('visible',window.scrollY>600)});
+
+// Reveal on scroll
+const ro=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');ro.unobserve(e.target)}})},{threshold:.15,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.rv,.rs').forEach(el=>ro.observe(el));
+
+// Counter animation
+function animateCounter(el,target){let current=0;const step=Math.max(target/60,1);const s=el.querySelector('span');const suffix=s?s.outerHTML:'';const timer=setInterval(()=>{current+=step;if(current>=target){current=target;clearInterval(timer)}el.innerHTML=Math.floor(current).toLocaleString()+suffix},16)}
+const counterObs=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){const el=e.target;const count=parseInt(el.dataset.count);if(count)animateCounter(el,count);counterObs.unobserve(el)}})},{threshold:.5});
+document.querySelectorAll('[data-count]').forEach(el=>counterObs.observe(el));
+</script>
+</body>
+</html>
